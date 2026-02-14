@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Michael's Market</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===== Глобальные переменные и сброс ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        /* Светлая тема (по умолчанию) */
+        :root {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-header: rgba(255,255,255,0.9);
+            --bg-card: #ffffff;
+            --bg-search: #e9e9ed;
+            --bg-tag: #f2f2f7;
+            --bg-age: #ececee;
+            --bg-price: #e8f0fe;
+            --bg-developer: #f0f0f4;
+            --bg-gallery: linear-gradient(145deg, #f2f2f7, #ffffff);
+            
+            --text-primary: #1d1d1f;
+            --text-secondary: #6c6c70;
+            --text-tertiary: #8e8e93;
+            --text-accent: #0066CC;
+            --text-age: #1d1d1f;
+            
+            --border-color: #f0f0f2;
+            --border-bottom: #d2d2d6;
+            
+            --shadow-color: rgba(0,0,0,0.05);
+            --shadow-hover: rgba(0,0,0,0.06);
+            
+            --icon-blue: #0d7cff;
+            --icon-green: #00a86b;
+            --icon-purple: #7b2eda;
+            --icon-orange: #ff6b2e;
+            --icon-red: #ff3b30;
+            --icon-teal: #4db6ac;
+            
+            --button-bg: #0066CC;
+            --button-shadow: rgba(0,102,204,0.25);
+            
+            --avatar-bg: #c4c4c6;
+            --avatar-color: #2c2c2e;
+            
+            --scrollbar-thumb: #c4c4c6;
+        }
+
+        /* Тёмная тема */
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #1c1c1e;
+            --bg-header: rgba(28,28,30,0.9);
+            --bg-card: #1c1c1e;
+            --bg-search: #2c2c2e;
+            --bg-tag: #2c2c2e;
+            --bg-age: #2c2c2e;
+            --bg-price: #1c2a3a;
+            --bg-developer: #2c2c2e;
+            --bg-gallery: linear-gradient(145deg, #1c1c1e, #2c2c2e);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #98989e;
+            --text-tertiary: #7c7c82;
+            --text-accent: #0a84ff;
+            --text-age: #ffffff;
+            
+            --border-color: #38383a;
+            --border-bottom: #38383a;
+            
+            --shadow-color: rgba(0,0,0,0.3);
+            --shadow-hover: rgba(255,255,255,0.03);
+            
+            --icon-blue: #0a84ff;
+            --icon-green: #30d158;
+            --icon-purple: #bf5af2;
+            --icon-orange: #ff9f0a;
+            --icon-red: #ff453a;
+            --icon-teal: #64d2ff;
+            
+            --button-bg: #0a84ff;
+            --button-shadow: rgba(10,132,255,0.3);
+            
+            --avatar-bg: #3a3a3c;
+            --avatar-color: #98989e;
+            
+            --scrollbar-thumb: #3a3a3c;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* ===== ХЕДЕР ===== */
+        .app-header {
+            background: var(--bg-header);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 20px var(--shadow-color);
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: var(--text-accent);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .logo-area i {
+            font-size: 1.8rem;
+        }
+
+        .search-bar {
+            flex: 1 1 200px;
+            min-width: 160px;
+            background: var(--bg-search);
+            border-radius: 30px;
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .search-bar i {
+            font-size: 1rem;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+            padding: 4px 0;
+            color: var(--text-primary);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* Кнопка переключения темы */
+        .theme-toggle {
+            background: var(--bg-search);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:active i {
+            transform: rotate(30deg);
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+        .main-container {
+            max-width: 1200px;
+            margin: 16px auto 30px;
+            padding: 0 12px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* ===== НАВИГАЦИОННЫЕ ВКЛАДКИ ===== */
+        .category-tabs {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            gap: 12px 20px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-bottom);
+            padding: 0 0 10px 0;
+            scrollbar-width: thin;
+            white-space: nowrap;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            height: 3px;
+        }
+        
+        .category-tabs::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 10px;
+        }
+
+        .category {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 6px 0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .category.active {
+            color: var(--text-accent);
+            border-bottom-color: var(--text-accent);
+        }
+
+        /* ===== СЕТКА КАРТОЧЕК ===== */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px 12px;
+            margin-bottom: 40px;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 14px 10px 14px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: transform 0.1s ease, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            width: 100%;
+        }
+
+        .app-card:active {
+            transform: scale(0.98);
+            background: var(--bg-search);
+        }
+
+        .app-card:hover {
+            box-shadow: 0 8px 20px var(--shadow-hover);
+            border-color: var(--text-tertiary);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--icon-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            background-size: cover;
+            background-position: center;
+            transition: background-color 0.2s;
+        }
+
+        .card-icon.purple { background: var(--icon-purple); }
+        .card-icon.blue { background: var(--icon-blue); }
+        .card-icon.green { background: var(--icon-green); }
+        .card-icon.orange { background: var(--icon-orange); }
+        .card-icon.red { background: var(--icon-red); }
+        .card-icon.teal { background: var(--icon-teal); }
+
+        .app-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .app-card .category-tag {
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            color: #ff9f0a;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .rating span {
+            color: var(--text-secondary);
+            margin-left: 4px;
+            font-size: 0.8rem;
+        }
+
+        .price-tag {
+            font-weight: 600;
+            color: var(--text-accent);
+            background: var(--bg-price);
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+
+        /* ===== ДЕТАЛЬНАЯ СТРАНИЦА ===== */
+        .app-detail-section {
+            background: var(--bg-secondary);
+            border-radius: 28px;
+            padding: 20px 16px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            margin-top: 8px;
+            width: 100%;
+        }
+
+        .detail-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .detail-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+            color: white;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto;
+        }
+
+        .detail-titles {
+            width: 100%;
+        }
+
+        .detail-titles h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        .detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            margin: 12px 0 16px;
+            font-size: 0.95rem;
+        }
+
+        .detail-meta .rating-large {
+            color: #ff9f0a;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .age-badge {
+            background: var(--bg-age);
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-age);
+        }
+
+        .download-button {
+            background: var(--button-bg);
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 16px 24px;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 18px var(--button-shadow);
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin: 8px 0 12px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .download-button i {
+            font-size: 1.3rem;
+        }
+
+        .download-button:active {
+            transform: scale(0.97);
+            background: var(--text-accent);
+            filter: brightness(0.9);
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 16px 0 8px;
+        }
+        
+        .feature-tag {
+            background: var(--bg-tag);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .detail-description {
+            margin: 24px 0 20px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .detail-description h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .detail-description p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .background-preview {
+            background: var(--bg-gallery);
+            border-radius: 24px;
+            padding: 20px 16px;
+            border: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
+
+        .background-preview h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+        }
+
+        .background-images {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 12px;
+            padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .bg-thumb {
+            min-width: 140px;
+            height: 100px;
+            border-radius: 18px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 10px var(--shadow-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 2px 5px black;
+            font-size: 0.9rem;
+            background-color: var(--bg-search);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 24px 0;
+        }
+
+        .note {
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* Кнопка "Назад" на детальной странице */
+        .back-button {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+            background: var(--bg-search);
+        }
+
+        /* Мобильные улучшения */
+        @media (max-width: 380px) {
+            .header-content {
+                gap: 6px;
+            }
+            .logo-area {
+                font-size: 1.1rem;
+            }
+            .logo-area i {
+                font-size: 1.5rem;
+            }
+            .search-bar {
+                padding: 5px 12px;
+            }
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .detail-titles h1 {
+                font-size: 1.5rem;
+            }
+            .download-button {
+                font-size: 1.1rem;
+                padding: 14px 20px;
+            }
+        }
+
+        /* Планшеты */
+        @media (min-width: 600px) and (max-width: 1024px) {
+            .detail-header {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .detail-titles {
+                text-align: left;
+            }
+            .detail-meta, .feature-tags {
+                justify-content: flex-start;
+            }
+            .download-button {
+                width: auto;
+            }
+        }
+
+        /* Десктоп */
+        @media (min-width: 1025px) {
+            .detail-header {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .detail-titles {
+                text-align: left;
+            }
+            .detail-meta, .feature-tags {
+                justify-content: flex-start;
+            }
+            .apps-grid {
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            }
+        }
+
+        #home-page, #detail-page {
+            transition: opacity 0.15s;
+        }
+
+        .loader {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-tertiary);
+            grid-column: 1/-1;
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <div class="logo-area" id="logo-home">
+                <i class="fas fa-cube"></i>
+                <span>Michael's Market</span>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="search" id="search-input" placeholder="Поиск приложений и игр" aria-label="Поиск">
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Главная страница -->
+        <div id="home-page">
+            <div class="category-tabs" id="category-tabs">
+                <span class="category active" data-category="all">Рекомендации</span>
+                <span class="category" data-category="games">Игры</span>
+                <span class="category" data-category="productivity">Приложения</span>
+                <span class="category" data-category="arcades">Аркады</span>
+                <span class="category" data-category="kids">Дети</span>
+            </div>
+
+            <h2 style="margin-bottom: 16px; font-weight: 600; font-size: 1.8rem;" id="section-title">Популярные новинки</h2>
+            <div class="apps-grid" id="apps-grid">
+                <div class="loader">Загрузка приложений...</div>
+            </div>
+        </div>
+
+        <!-- Детальная страница -->
+        <div id="detail-page" class="app-detail-section" style="display: none;">
+            <!-- Контент будет заполняться динамически -->
+        </div>
+
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+
+        <div id="policy" style="margin: 50px 0 30px; padding: 30px 20px; background: var(--bg-secondary); border-radius: 32px; border: 1px solid var(--border-color);">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--text-accent); margin-bottom: 15px;"></i>
+                <h2 style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Правила магазина Michael's Market</h2>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;">Последнее обновление: Пятница, 13 февраля 2026</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;">
+                <!-- Правило 1 -->
+                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-check-circle" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Качество контента</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5;">Все приложения должны быть полностью функциональными, без критических багов и с качественным пользовательским интерфейсом.</p>
+                </div>
+
+                <!-- Правило 2 -->
+                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-shield-virus" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Безопасность</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5;">Запрещены приложения с вредоносным кодом, сбором личных данных без согласия пользователя и скрытыми платёжными операциями.</p>
+                </div>
+
+                <!-- Правило 3 -->
+                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-copyright" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Авторские права</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5;">Разработчики гарантируют, что обладают всеми правами на размещаемый контент. Запрещён плагиат и нарушение чужих авторских прав.</p>
+                </div>
+
+                <!-- Правило 4 -->
+                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-child" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Возрастные ограничения</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5;">Все приложения должны иметь корректно указанное возрастное ограничение. Контент для взрослых (18+) должен быть соответствующим образом помечен.</p>
+                </div>
+
+                <!-- Правило 5 -->
+                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-image" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Иконки и скриншоты</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5;">Иконка приложения должна быть уникальной, а скриншоты точно соответствовать реальному функционалу приложения. Минимум 3 скриншота.</p>
+                </div>
+
+                <!-- Правило 6 -->
+                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <i class="fas fa-file-alt" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Описание</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.5;">Описание должно быть информативным, без обмана и преувеличений. Обязательно указывайте все ключевые функции приложения.</p>
+                </div>
+            </div>
+
+            <!-- Запрещённый контент -->
+            <div style="margin-top: 30px; padding: 25px; background: rgba(255, 69, 58, 0.05); border-radius: 24px; border: 1px solid rgba(255, 69, 58, 0.2);">
+                <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 20px; color: #ff453a; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-ban"></i> Строго запрещено
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Пропаганда насилия
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Наркотические вещества
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Мошенничество
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Оскорбления и дискриминация
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Взлом и кража данных
+                    </div>
+                </div>
+            </div>
+
+            <!-- Для разработчиков -->
+            <div style="margin-top: 40px; text-align: center; padding: 30px; background: var(--bg-gallery); border-radius: 24px;">
+                <i class="fas fa-code" style="font-size: 2.5rem; color: var(--text-accent); margin-bottom: 15px;"></i>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Для разработчиков</h3>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 20px;">
+                    Хотите разместить своё приложение в Michael's Market?
+                    Заполните <a href="https://docs.google.com/forms/d/e/1FAIpQLSesYIvl_bqm_Fbz5KPvvzVQshY5V0XdlnqXNt0EyAxQRYaTZA/viewform?usp=publish-editor">форму</a>
+
+                    Для обновления игры заполните <a href="https://docs.google.com/forms/d/e/1FAIpQLSesYIvl_bqm_Fbz5KPvvzVQshY5V0XdlnqXNt0EyAxQRYaTZA/viewform?usp=publish-editor">форму</a>
+                    с тем же именем создателя, названием игры и описанием
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            // ---------- Состояние приложения ----------
+            let appsData = [];
+            let currentCategory = 'all';
+            let currentSearch = '';
+
+            // Элементы DOM
+            const homePage = document.getElementById('home-page');
+            const detailPage = document.getElementById('detail-page');
+            const logoHome = document.getElementById('logo-home');
+            const appsGrid = document.getElementById('apps-grid');
+            const searchInput = document.getElementById('search-input');
+            const categoryTabs = document.querySelectorAll('.category');
+            const sectionTitle = document.getElementById('section-title');
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+
+            // ---------- Управление тёмной темой ----------
+            function initTheme() {
+                // Проверяем сохранённую тему
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+            initTheme();
+
+            // ---------- Загрузка данных из JSON ----------
+            async function loadAppsData() {
+                try {
+                    // Пробуем загрузить с удаленного ресурса
+                    let response;
+                    try {
+                        response = await fetch('https://michael-studio.github.io/Michael-s-Market-Apps/apps.json');
+                        if (!response.ok) throw new Error('Network error');
+                        const data = await response.json();
+                        if (data && Array.isArray(data)) {
+                            appsData = data;
+                        } else {
+                            throw new Error('Invalid data format');
+                        }
+                    } catch (e) {
+                        console.log('Использую локальные данные');
+                        appsData = [
+    {
+        "id": "storage-tycoon",
+        "icon": "https://github.com/Michael-Studio/storage-tycoon/blob/main/icon.png?raw=true",
+        "iconClass": "",
+        "iconUrl": "https://github.com/Michael-Studio/storage-tycoon/blob/main/icon.png?raw=true",
+        "name": "Storage Tycoon",
+        "category": "Игры",
+        "categoryTag": "games",
+        "fullData": {
+            "iconUrl": "https://github.com/Michael-Studio/storage-tycoon/blob/main/icon.png?raw=true",
+            "iconClass": "",
+            "title": "Storage Tycoon",
+            "rating": "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star-half-alt'></i> 4.8",
+            "size": "134KB",
+            "age": "0+",
+            "tags": ["games", "storage", "tycoon", "симулятор", "бизнес"],
+            "description": "Начните свой путь в 1980 году как стартап-производитель накопителей для ПК. Постройте технологическую империю, пройдя путь от простейших модулей памяти до современных SSD.",
+            "gallery": [
+                "https://github.com/Michael-Studio/storage-tycoon/blob/main/7e4568c0-7868-4095-b6fa-19f9a75522ac.png?raw=true",
+                "https://github.com/Michael-Studio/storage-tycoon/blob/main/ed1fa7d2-1f7d-4bfa-a3b5-b8374e1c2dc7.png?raw=true",
+                "https://github.com/Michael-Studio/storage-tycoon/blob/main/87fd7826-8517-4fba-acbe-49ab7dcb61fa.png?raw=true"
+            ],
+            "additional": ["27 января 2026"],
+            "developer": "Michael",
+            "downloadUrl": "https://michael-studio.github.io/storage-tycoon"
+        }
+    },
+    {
+        "id": "storage-tycoon",
+        "icon": "green",
+        "iconClass": "",
+        "iconUrl": "https://iimg.su/s/14/gNtQnfVxVFDJJOUEVQLSCEzhEvEzfsO1DJWL8QLg.png",
+        "name": "PC Building Simulator",
+        "category": "Игры",
+        "categoryTag": "games",
+        "fullData": {
+            "iconUrl": "https://iimg.su/s/14/gNtQnfVxVFDJJOUEVQLSCEzhEvEzfsO1DJWL8QLg.png",
+            "iconClass": "",
+            "title": "PC Building Simulator",
+            "rating": "<i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star-half-alt'></i> 4.8",
+            "size": "-",
+            "age": "0+",
+            "tags": ["games", "pc building", "simulator", "бизнес"],
+            "description": "Начни в роле сборщика пк в 1995 . Построй игровую империю и свой бренд",
+            "gallery": [
+                
+            ],
+            "additional": ["14 февраля 2026"],
+            "developer": "Roman",
+            "downloadUrl": "https://michael-studio.github.io/Michael-s-Market-Apps/roma"
+        }
+    }
+];
+                    }
+                    
+                    // СОРТИРУЕМ ПО ДАТЕ (новые сверху)
+                    appsData.sort((a, b) => {
+                        // Получаем дату из additional (первый элемент - дата)
+                        const dateA = a.fullData?.additional?.[0] || '01 января 1970';
+                        const dateB = b.fullData?.additional?.[0] || '01 января 1970';
+                        
+                        // Функция для преобразования русской даты в объект Date
+                        function parseDate(dateStr) {
+                            const months = {
+                                'января': 0, 'февраля': 1, 'марта': 2, 'апреля': 3, 'мая': 4, 'июня': 5,
+                                'июля': 6, 'августа': 7, 'сентября': 8, 'октября': 9, 'ноября': 10, 'декабря': 11
+                            };
+                            
+                            const parts = dateStr.split(' ');
+                            if (parts.length >= 3) {
+                                const day = parseInt(parts[0]);
+                                const month = months[parts[1].toLowerCase()];
+                                const year = parseInt(parts[2]);
+                                return new Date(year, month, day);
+                            }
+                            return new Date(0);
+                        }
+                        
+                        const date1 = parseDate(dateA);
+                        const date2 = parseDate(dateB);
+                        
+                        // Новые сверху
+                        return date2 - date1;
+                    });
+                    
+                    renderHomePage();
+                    
+                } catch (error) {
+                    console.error('Ошибка загрузки:', error);
+                    appsGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-tertiary);">Ошибка загрузки данных</div>';
+                }
+            }
+
+            // ---------- Фильтрация приложений ----------
+            function filterApps() {
+                if (!appsData.length) return [];
+                
+                return appsData.filter(app => {
+                    if (currentCategory !== 'all' && app.categoryTag !== currentCategory) return false;
+                    
+                    if (currentSearch) {
+                        const searchLower = currentSearch.toLowerCase();
+                        return app.name.toLowerCase().includes(searchLower) || 
+                               app.category.toLowerCase().includes(searchLower);
+                    }
+                    
+                    return true;
+                });
+            }
+
+            // ---------- Рендер главной страницы ----------
+            function renderHomePage() {
+                const filteredApps = filterApps();
+                
+                if (!appsData.length) {
+                    appsGrid.innerHTML = '<div class="loader">Загрузка приложений...</div>';
+                    return;
+                }
+
+                if (filteredApps.length === 0) {
+                    appsGrid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-tertiary);">Ничего не найдено</div>';
+                    return;
+                }
+
+                let html = '';
+                filteredApps.forEach(app => {
+                    // Генерируем звезды для рейтинга
+                    let stars = '';
+                    if (app.rating) {
+                        for (let i = 0; i < Math.floor(app.rating); i++) stars += '<i class="fas fa-star"></i>';
+                        if (app.rating % 1 !== 0) stars += '<i class="fas fa-star-half-alt"></i>';
+                    }
+                    
+                    html += `
+                        <a class="app-card" data-app-id="${app.id}" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                            <div class="card-icon ${app.icon || 'green'}" style="background-image: url('${app.iconUrl || ''}'); background-size: cover; background-position: center; width: 100px; height:100px; font-size: 2.8rem; margin: 0 auto 12px auto;">
+                                ${!app.iconUrl ? '<i class="fas fa-cube"></i>' : ''}
+                            </div>
+                            <h3 style="text-align: center; width: 100%;">${app.name}</h3>
+                            <div class="category-tag" style="text-align: center; width: 100%;">${app.category}</div>
+                        </a>
+                    `;
+                });
+                
+                appsGrid.innerHTML = html;
+                
+                // Добавляем обработчики на карточки
+                document.querySelectorAll('.app-card').forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const appId = this.dataset.appId;
+                        const app = appsData.find(a => a.id === appId);
+                        if (app) {
+                            showDetailPage(app.fullData);
+                        }
+                    });
+                });
+            }
+
+            // ---------- Показ детальной страницы ----------
+            function showDetailPage(data) {
+                if (!data) return;
+                
+                // Строим HTML детальной страницы
+                const galleryHtml = data.gallery.map(url => 
+                    `<div class="bg-thumb" style="background-image: url('${url}');"></div>`
+                ).join('');
+                
+                const tagsHtml = data.tags ? data.tags.map(tag => 
+                    `<span class="feature-tag">${tag}</span>`
+                ).join('') : '';
+                
+                const additionalHtml = data.additional.map(text => 
+                    `<span><i class="fas fa-calendar-alt"></i> ${text}</span>`
+                ).join('');
+                
+                const iconStyle = data.iconUrl 
+                    ? `style="background-image: url('${data.iconUrl}'); background-size: cover; background-position: center;"`
+                    : '';
+                
+                const detailHtml = `
+                    <button class="back-button" id="back-button">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    
+                    <div class="detail-header">
+                        <div class="detail-icon" ${iconStyle}></div>
+                        <div class="detail-titles">
+                            <h1>${data.title}</h1>
+                            <div class="detail-meta">
+                                <span>📦 ${data.size}</span>
+                                <span class="age-badge"><i class="fas fa-plus-circle"></i> ${data.age}</span>
+                            </div>
+                            <a href="${data.downloadUrl}" target="_blank" class="download-button" style="text-decoration: none;">
+                                <i class="fas fa-download"></i> Скачать
+                            </a>
+                            ${tagsHtml ? `<div class="feature-tags">${tagsHtml}</div>` : ''}
+                        </div>
+                    </div>
+
+                    <div class="detail-description">
+                        <h2>Описание</h2>
+                        <p>${data.description}</p>
+                    </div>
+
+                    <div class="background-preview">
+                        <h3><i class="fas fa-image"></i> Скриншоты</h3>
+                        <div class="background-images">
+                            ${galleryHtml}
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                            ${additionalHtml}
+                        </div>
+                        <span style="background: var(--bg-developer); padding: 8px 24px; border-radius: 30px; color: var(--text-primary);">${data.developer}</span>
+                    </div>
+                `;
+                
+                detailPage.innerHTML = detailHtml;
+                
+                // Добавляем обработчик на кнопку "Назад"
+                document.getElementById('back-button').addEventListener('click', showHomePage);
+
+                homePage.style.display = 'none';
+                detailPage.style.display = 'block';
+                window.location.hash = 'app-detail';
+            }
+
+            // ---------- Показ главной страницы ----------
+            function showHomePage() {
+                homePage.style.display = 'block';
+                detailPage.style.display = 'none';
+                window.location.hash = '';
+                renderHomePage();
+            }
+
+            // ---------- Обработчики событий ----------
+            
+            // Категории
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentCategory = this.dataset.category;
+                    
+                    if (currentCategory === 'all') {
+                        sectionTitle.textContent = 'Популярные новинки';
+                    } else {
+                        sectionTitle.textContent = this.textContent;
+                    }
+                    
+                    renderHomePage();
+                });
+            });
+
+            // Поиск с debounce
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    currentSearch = this.value.trim();
+                    renderHomePage();
+                }, 300);
+            });
+
+            // Логотип
+            logoHome.addEventListener('click', function(e) {
+                e.preventDefault();
+                showHomePage();
+            });
+
+            // Хэш-навигация
+            window.addEventListener('hashchange', function() {
+                if (window.location.hash !== '#app-detail') {
+                    showHomePage();
+                }
+            });
+
+            // Запуск: загружаем данные
+            loadAppsData();
+
+            // Если хэш указывает на детальную, покажем первый элемент
+            if (window.location.hash === '#app-detail') {
+                const checkData = setInterval(() => {
+                    if (appsData.length > 0) {
+                        clearInterval(checkData);
+                        showDetailPage(appsData[0].fullData);
+                    }
+                }, 100);
+            }
+        })();
+    </script>
+</body>
+</html>
