@@ -1151,8 +1151,8 @@
                 if (!data) return;
 
                 let oscarHtml = '';
-                if (data.oscar) {
-                    oscarHtml = `<span>ОСКАР ${data.oscar} СТЕПЕНИ</span>`;
+                if (data.oscar && data.nomin) {
+                    oscarHtml = `<span>ОСКАР ${data.oscar} СТЕПЕНИ НОМИНАЦИИ ${data.nomin}</span>`;
                 }
                 
                 // Строим HTML детальной страницы
