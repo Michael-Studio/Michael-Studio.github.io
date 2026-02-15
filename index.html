@@ -851,7 +851,7 @@
                     // Пробуем загрузить с удаленного ресурса
                     let response;
                     try {
-                        response = await fetch('https://michael-studios.github.io/Michael-s-Market-Apps/apps.json');
+                        response = await fetch('https://michael-studio.github.io/Michael-s-Market-Apps/apps.json');
                         if (!response.ok) throw new Error('Network error');
                         const data = await response.json();
                         if (data && Array.isArray(data)) {
