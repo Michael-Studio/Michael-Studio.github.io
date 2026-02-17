@@ -673,6 +673,9 @@
                 <span class="category" data-category="kids">Дети</span>
                 <span class="category" data-category="books">Книги</span>
                 <span class="category" data-category="poetry">Стихи</span>
+                <span class="category" data-category="mods">Моды</span>
+                <span class="category" data-category="server">Серверы</span>
+                <button onclick="document.getElementById('POZOR').show()">Доска позора</button>
             </div>
 
             <h2 style="margin-bottom: 16px; font-weight: 600; font-size: 1.8rem;" id="section-title">Популярные новинки</h2>
@@ -680,6 +683,15 @@
                 <div class="loader">Загрузка приложений...</div>
             </div>
         </div>
+
+        <dialog id="POZOR">
+            <button onclick="this.closest('dialog').close()">X</button>
+            <h1>Доска позора</h1>
+            <h2>Пользователи</h2>
+            <p>Peter - Человек находящийся под воздействием психическим заболеванием и ведящий бурную и агрессивную деятельность на нашем проекте</p>
+            <h2>Разработчики</h2>
+            <p>Пока нету</p>
+        </dialog>
 
         <!-- Детальная страница -->
         <div id="detail-page" class="app-detail-section" style="display: none;">
