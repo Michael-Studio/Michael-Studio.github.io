@@ -447,6 +447,27 @@
             max-width: 300px;
         }
 
+        .download-button-ban {
+            background: #4d4d4d;
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 16px 24px;
+            border-radius: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 18px var(--button-shadow);
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin: 8px 0 12px;
+            width: 100%;
+            max-width: 300px;
+        }
+
         .download-button i {
             font-size: 1.3rem;
         }
@@ -1194,6 +1215,23 @@
                 const iconStyle = data.iconUrl 
                     ? `style="background-image: url('${data.iconUrl}'); background-size: cover; background-position: center;"`
                     : '';
+
+                playbtn = ``;
+
+                if (data.ban) {
+                    playbtn = `
+                            <a class="download-button-ban" style="text-decoration: none;">
+                                <i class="fas fa-download"></i> Игра заблокирована
+                            </a>
+                            <div class="ban-reason">Причина: ${data.ban}</div>
+                    `;
+                } else {
+                    playbtn = `
+                            <a href="${data.downloadUrl}" target="_blank" class="download-button" style="text-decoration: none;">
+                                <i class="fas fa-download"></i> Играть
+                            </a>
+                    `;
+                }
                 
                 const detailHtml = `
                     <button class="back-button" id="back-button">
@@ -1208,9 +1246,8 @@
                                 <span>📦 ${data.size}</span>
                                 <span class="age-badge"><i class="fas fa-plus-circle"></i> ${data.age}</span>
                             </div>
-                            <a href="${data.downloadUrl}" target="_blank" class="download-button" style="text-decoration: none;">
-                                <i class="fas fa-download"></i> Скачать
-                            </a>
+                            
+                            ${playbtn}
                             ${tagsHtml ? `<div class="feature-tags">${tagsHtml}</div>` : ''}
                         </div>
                     </div>
