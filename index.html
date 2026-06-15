@@ -667,173 +667,180 @@
     </style>
 </head>
 <body>
-    <header class="app-header">
-        <div class="header-content">
-            <div class="logo-area" id="logo-home">
-                <i class="fas fa-cube"></i>
-                <span>Michael's Market</span>
+    <div class="main-container">
+        <p><i class="bi bi-exclamation-circle-fill"></i> Лавочка прикрыта, используйте This People Launcher</p>
+    </div>
+
+    <div style="display: none">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-area" id="logo-home">
+                    <i class="fas fa-cube"></i>
+                    <span>Michael's Market</span>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="search-input" placeholder="Поиск приложений и игр" aria-label="Поиск">
+                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="search" id="search-input" placeholder="Поиск приложений и игр" aria-label="Поиск">
-            </div>
-            <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-    </header>
+        </header>
 
-    <main class="main-container">
-        <!-- Главная страница -->
-        <div id="home-page">
-            <div class="category-tabs" id="category-tabs">
-                <span class="category active" data-category="all">Рекомендации</span>
-                <span class="category" data-category="games">Игры</span>
-                <span class="category" data-category="productivity">Приложения</span>
-                <span class="category" data-category="arcades">Аркады</span>
-                <span class="category" data-category="kids">Дети</span>
-                <span class="category" data-category="books">Книги</span>
-                <span class="category" data-category="poetry">Стихи</span>
-                <span class="category" data-category="mods">Моды</span>
-                <span class="category" data-category="server">Серверы</span>
-                <button onclick="document.getElementById('POZOR').show()">Доска позора</button>
-            </div>
-
-            <h2 style="margin-bottom: 16px; font-weight: 600; font-size: 1.8rem;" id="section-title">Популярные новинки</h2>
-            <div class="apps-grid" id="apps-grid">
-                <div class="loader">Загрузка приложений...</div>
-            </div>
-        </div>
-
-        <dialog id="POZOR">
-            <button onclick="this.closest('dialog').close()">X</button>
-            <h1>Доска позора</h1>
-            <h2>Пользователи</h2>
-            <p>Peter - Человек находящийся под воздействием психическим заболеванием и ведящий бурную и агрессивную деятельность на нашем проекте</p>
-            <h2>Разработчики</h2>
-            <p>Пока нету</p>
-        </dialog>
-
-        <!-- Детальная страница -->
-        <div id="detail-page" class="app-detail-section" style="display: none;">
-            <!-- Контент будет заполняться динамически -->
-        </div>
-
-        <br><br>
-        <br><br>
-        <br><br>
-        <br><br>
-        <br><br>
-        <br><br>
-
-        <div id="policy" style="margin: 50px 0 30px; padding: 30px 20px; background: var(--bg-secondary); border-radius: 32px; border: 1px solid var(--border-color);">
-            <div style="text-align: center; margin-bottom: 30px;">
-                <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--text-accent); margin-bottom: 15px;"></i>
-                <h2 style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Правила магазина Michael's Market</h2>
-                <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;">Последнее обновление: Пятница, 13 февраля 2026</p>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;">
-                <!-- Правило 1 -->
-                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
-                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-check-circle" style="font-size: 1.8rem; color: var(--text-accent);"></i>
-                    </div>
-                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Качество контента</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5;">Все приложения должны быть полностью функциональными, без критических багов и с качественным пользовательским интерфейсом.</p>
+        <main class="main-container">
+            <!-- Главная страница -->
+            <div id="home-page">
+                <div class="category-tabs" id="category-tabs">
+                    <span class="category active" data-category="all">Рекомендации</span>
+                    <span class="category" data-category="games">Игры</span>
+                    <span class="category" data-category="productivity">Приложения</span>
+                    <span class="category" data-category="arcades">Аркады</span>
+                    <span class="category" data-category="kids">Дети</span>
+                    <span class="category" data-category="books">Книги</span>
+                    <span class="category" data-category="poetry">Стихи</span>
+                    <span class="category" data-category="mods">Моды</span>
+                    <span class="category" data-category="server">Серверы</span>
+                    <button onclick="document.getElementById('POZOR').show()">Доска позора</button>
                 </div>
 
-                <!-- Правило 2 -->
-                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
-                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-shield-virus" style="font-size: 1.8rem; color: var(--text-accent);"></i>
-                    </div>
-                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Безопасность</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5;">Запрещены приложения с вредоносным кодом, сбором личных данных без согласия пользователя и скрытыми платёжными операциями.</p>
-                </div>
-
-                <!-- Правило 3 -->
-                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
-                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-copyright" style="font-size: 1.8rem; color: var(--text-accent);"></i>
-                    </div>
-                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Авторские права</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5;">Разработчики гарантируют, что обладают всеми правами на размещаемый контент. Запрещён плагиат и нарушение чужих авторских прав.</p>
-                </div>
-
-                <!-- Правило 4 -->
-                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
-                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-child" style="font-size: 1.8rem; color: var(--text-accent);"></i>
-                    </div>
-                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Возрастные ограничения</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5;">Все приложения должны иметь корректно указанное возрастное ограничение. Контент для взрослых (18+) должен быть соответствующим образом помечен.</p>
-                </div>
-
-                <!-- Правило 5 -->
-                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
-                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-image" style="font-size: 1.8rem; color: var(--text-accent);"></i>
-                    </div>
-                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Иконки и скриншоты</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5;">Иконка приложения должна быть уникальной, а скриншоты точно соответствовать реальному функционалу приложения. Минимум 3 скриншота.</p>
-                </div>
-
-                <!-- Правило 6 -->
-                <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
-                    <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <i class="fas fa-file-alt" style="font-size: 1.8rem; color: var(--text-accent);"></i>
-                    </div>
-                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Описание</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.5;">Описание должно быть информативным, без обмана и преувеличений. Обязательно указывайте все ключевые функции приложения.</p>
+                <h2 style="margin-bottom: 16px; font-weight: 600; font-size: 1.8rem;" id="section-title">Популярные новинки</h2>
+                <div class="apps-grid" id="apps-grid">
+                    <div class="loader">Загрузка приложений...</div>
                 </div>
             </div>
 
-            <!-- Запрещённый контент -->
-            <div style="margin-top: 30px; padding: 25px; background: rgba(255, 69, 58, 0.05); border-radius: 24px; border: 1px solid rgba(255, 69, 58, 0.2);">
-                <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 20px; color: #ff453a; display: flex; align-items: center; gap: 10px;">
-                    <i class="fas fa-ban"></i> Строго запрещено
-                </h3>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Пропаганда насилия
+            <dialog id="POZOR">
+                <button onclick="this.closest('dialog').close()">X</button>
+                <h1>Доска позора</h1>
+                <h2>Пользователи</h2>
+                <p>Peter - Человек находящийся под воздействием психическим заболеванием и ведящий бурную и агрессивную деятельность на нашем проекте</p>
+                <h2>Разработчики</h2>
+                <p>Пока нету</p>
+            </dialog>
+
+            <!-- Детальная страница -->
+            <div id="detail-page" class="app-detail-section" style="display: none;">
+                <!-- Контент будет заполняться динамически -->
+            </div>
+
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+            <br><br>
+
+            <div id="policy" style="margin: 50px 0 30px; padding: 30px 20px; background: var(--bg-secondary); border-radius: 32px; border: 1px solid var(--border-color);">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--text-accent); margin-bottom: 15px;"></i>
+                    <h2 style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Правила магазина Michael's Market</h2>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0;">Последнее обновление: Пятница, 13 февраля 2026</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px;">
+                    <!-- Правило 1 -->
+                    <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                        <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-check-circle" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Качество контента</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.5;">Все приложения должны быть полностью функциональными, без критических багов и с качественным пользовательским интерфейсом.</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Наркотические вещества
+
+                    <!-- Правило 2 -->
+                    <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                        <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-shield-virus" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Безопасность</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.5;">Запрещены приложения с вредоносным кодом, сбором личных данных без согласия пользователя и скрытыми платёжными операциями.</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Мошенничество
+
+                    <!-- Правило 3 -->
+                    <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                        <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-copyright" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Авторские права</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.5;">Разработчики гарантируют, что обладают всеми правами на размещаемый контент. Запрещён плагиат и нарушение чужих авторских прав.</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Оскорбления и дискриминация
+
+                    <!-- Правило 4 -->
+                    <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                        <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-child" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Возрастные ограничения</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.5;">Все приложения должны иметь корректно указанное возрастное ограничение. Контент для взрослых (18+) должен быть соответствующим образом помечен.</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Взлом и кража данных
+
+                    <!-- Правило 5 -->
+                    <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                        <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-image" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Иконки и скриншоты</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.5;">Иконка приложения должна быть уникальной, а скриншоты точно соответствовать реальному функционалу приложения. Минимум 3 скриншота.</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Пропаганда азартных игр
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
-                        <i class="fas fa-times-circle" style="color: #ff453a;"></i> Азартные игры
+
+                    <!-- Правило 6 -->
+                    <div style="background: var(--bg-card); padding: 25px; border-radius: 24px; border: 1px solid var(--border-color);">
+                        <div style="width: 50px; height: 50px; background: var(--bg-price); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <i class="fas fa-file-alt" style="font-size: 1.8rem; color: var(--text-accent);"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Описание</h3>
+                        <p style="color: var(--text-secondary); line-height: 1.5;">Описание должно быть информативным, без обмана и преувеличений. Обязательно указывайте все ключевые функции приложения.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- Для разработчиков -->
-            <div style="margin-top: 40px; text-align: center; padding: 30px; background: var(--bg-gallery); border-radius: 24px;">
-                <i class="fas fa-code" style="font-size: 2.5rem; color: var(--text-accent); margin-bottom: 15px;"></i>
-                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Для разработчиков</h3>
-                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 20px;">
-                    Хотите разместить своё приложение в Michael's Market?
-                    Заполните <a href="https://docs.google.com/forms/d/e/1FAIpQLSesYIvl_bqm_Fbz5KPvvzVQshY5V0XdlnqXNt0EyAxQRYaTZA/viewform?usp=publish-editor">форму</a>
+                <!-- Запрещённый контент -->
+                <div style="margin-top: 30px; padding: 25px; background: rgba(255, 69, 58, 0.05); border-radius: 24px; border: 1px solid rgba(255, 69, 58, 0.2);">
+                    <h3 style="font-size: 1.4rem; font-weight: 600; margin-bottom: 20px; color: #ff453a; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-ban"></i> Строго запрещено
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Пропаганда насилия
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Наркотические вещества
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Мошенничество
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Оскорбления и дискриминация
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Взлом и кража данных
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Пропаганда азартных игр
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; color: var(--text-secondary);">
+                            <i class="fas fa-times-circle" style="color: #ff453a;"></i> Азартные игры
+                        </div>
+                    </div>
+                </div>
 
-                    Для обновления игры заполните <a href="https://docs.google.com/forms/d/e/1FAIpQLSesYIvl_bqm_Fbz5KPvvzVQshY5V0XdlnqXNt0EyAxQRYaTZA/viewform?usp=publish-editor">форму</a>
-                    с тем же именем создателя, названием игры и описанием
-                </p>
+                <!-- Для разработчиков -->
+                <div style="margin-top: 40px; text-align: center; padding: 30px; background: var(--bg-gallery); border-radius: 24px;">
+                    <i class="fas fa-code" style="font-size: 2.5rem; color: var(--text-accent); margin-bottom: 15px;"></i>
+                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary);">Для разработчиков</h3>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 20px;">
+                        Хотите разместить своё приложение в Michael's Market?
+                        Заполните <a href="https://docs.google.com/forms/d/e/1FAIpQLSesYIvl_bqm_Fbz5KPvvzVQshY5V0XdlnqXNt0EyAxQRYaTZA/viewform?usp=publish-editor">форму</a>
+
+                        Для обновления игры заполните <a href="https://docs.google.com/forms/d/e/1FAIpQLSesYIvl_bqm_Fbz5KPvvzVQshY5V0XdlnqXNt0EyAxQRYaTZA/viewform?usp=publish-editor">форму</a>
+                        с тем же именем создателя, названием игры и описанием
+                    </p>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+
+    </div>
 
     <script>
         (function() {
